@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="text-center mb-5">
+            <h1 class="game-title">
+                <i class="fas fa-pipe me-2"></i> Pipeline Panic
+            </h1>
+            <p class="lead">Can you navigate the challenges of a CI/CD pipeline?</p>
+        </div>
+        
+        <div class="card mb-4 bg-dark">
+            <div class="card-body">
+                <h2 class="card-title mb-4">Welcome to Pipeline Panic!</h2>
+                
+                <p>You're a DevOps engineer tasked with getting your team's latest changes through the CI/CD pipeline 
+                and into production. Navigate through each stage by making the right choices to overcome obstacles!</p>
+                
+                <h3 class="mt-4 mb-3">How to Play</h3>
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-arrow-right me-2 text-info"></i>
+                        Progress through each pipeline stage: Code → Build → Test → Deploy
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-exclamation-triangle me-2 text-warning"></i>
+                        Each stage has obstacles you must overcome
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-check-circle me-2 text-success"></i>
+                        Choose the correct action to advance to the next stage
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-times-circle me-2 text-danger"></i>
+                        Wrong choices count against you - 3 wrong choices and your pipeline fails!
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-hourglass-half me-2 text-secondary"></i>
+                        The game ends after 5 turns, so choose wisely!
+                    </li>
+                </ul>
+                
+                <h3 class="mt-4 mb-3">Pipeline Stages</h3>
+                <div class="row text-center mb-4">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stage mx-auto">
+                            <div class="stage-icon">💻</div>
+                            <div class="stage-name">Code</div>
+                        </div>
+                        <p class="mt-2">Write and manage code</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stage mx-auto">
+                            <div class="stage-icon">⚙️</div>
+                            <div class="stage-name">Build</div>
+                        </div>
+                        <p class="mt-2">Compile and package</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stage mx-auto">
+                            <div class="stage-icon">🧪</div>
+                            <div class="stage-name">Test</div>
+                        </div>
+                        <p class="mt-2">Verify functionality</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stage mx-auto">
+                            <div class="stage-icon">🚀</div>
+                            <div class="stage-name">Deploy</div>
+                        </div>
+                        <p class="mt-2">Release to production</p>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="{{ url_for('game') }}" class="btn btn-info btn-lg px-5">
+                        <i class="fas fa-play me-2"></i> Start Game
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card bg-dark">
+            <div class="card-body">
+                <h3 class="card-title">DevOps Fun Facts</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-info-circle me-2 text-info"></i>
+                        The term "DevOps" was coined in 2009 by Patrick Debois.
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-info-circle me-2 text-info"></i>
+                        Companies that implement DevOps recover from incidents up to 24 times faster.
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <i class="fas fa-info-circle me-2 text-info"></i>
+                        CI/CD stands for Continuous Integration and Continuous Delivery/Deployment.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

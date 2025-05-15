@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="text-center mb-4">
+            <i class="fas fa-pipe me-2"></i> Pipeline Panic
+        </h1>
+        
+        <!-- Game Status Bar -->
+        <div class="card mb-4 bg-dark">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="status-indicator">
+                            <i class="fas fa-star me-1 text-warning"></i>
+                            <span id="score-display">Score: {{ score }}</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="status-indicator">
+                            <i class="fas fa-hourglass-half me-1 text-info"></i>
+                            <span id="turns-display">Turn: {{ turns }}/{{ 5 }}</span>
+                        </span>
+                        <span class="status-indicator">
+                            <i class="fas fa-times-circle me-1 text-danger"></i>
+                            <span id="errors-display">Errors: {{ wrong_choices }}/{{ 3 }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pipeline Visualization -->
+        <div class="pipeline-container mb-5">
+            <div class="pipeline-line"></div>
+            <!-- Calculate pipeline progress - if stage_index is 0, show no progress -->
+            <div class="pipeline-progress" style="width: {{ (stage_index / (stages|length - 1)) * 100 if stages|length > 1 and stage_index > 0 else (0 if stage_index == 0 else 25) }}%"></div>
+            
+            <div class="row stage-container">
+                {% for pipeline_stage in stages %}
+                <div class="col text-center">
+                    <div class="stage {% if pipeline_stage == stage %}stage-current{% elif pipeline_stage in stages_completed %}stage-completed{% else %}stage-future{% endif %}"
+                         data-stage-index="{{ loop.index0 }}">
+                        <div class="stage-icon">{{ stage_icons[pipeline_stage] }}</div>
+                        <div class="stage-name">{{ pipeline_stage }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Current Stage and Obstacle -->
+        <div class="row mb-4">
+            <div class="col-lg-12">
+                <div class="card obstacle-card">
+                    <div class="card-header bg-dark">
+                        <h3>
+                            <span class="stage-icon me-2">{{ stage_icons[stage] }}</span>
+                            {{ stage }} Stage Obstacle
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">{{ obstacle.obstacle }}</h4>
+                        <p class="card-text">Choose the correct action to overcome this obstacle:</p>
+                        
+                        <form action="{{ url_for('make_choice') }}" method="post">
+                            <div class="row">
+                                {% for choice in obstacle.choices %}
+                                <div class="col-md-4 mb-3">
+                                    <button type="submit" name="choice" value="{{ loop.index0 }}" class="btn btn-outline-secondary w-100 h-100 choice-btn py-3">
+                                        {{ choice.text }}
+                                    </button>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- DevOps Tips -->
+        <div class="card bg-dark">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb me-2 text-warning"></i> DevOps Tips</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-dark">
+                                <i class="fas fa-check-circle me-2 text-success"></i>
+                                Automate repetitive tasks whenever possible
+                            </li>
+                            <li class="list-group-item bg-dark">
+                                <i class="fas fa-check-circle me-2 text-success"></i>
+                                Test early and often
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-dark">
+                                <i class="fas fa-check-circle me-2 text-success"></i>
+                                Monitor your applications and infrastructure
+                            </li>
+                            <li class="list-group-item bg-dark">
+                                <i class="fas fa-check-circle me-2 text-success"></i>
+                                Implement Infrastructure as Code (IaC)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Additional game-specific JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        // Highlight current stage with pulsing effect
+        const currentStage = document.querySelector('.stage-current');
+        if (currentStage) {
+            currentStage.classList.add('pulse');
+        }
+    });
+</script>
+{% endblock %}
