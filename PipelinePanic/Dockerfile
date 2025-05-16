@@ -1,19 +1,19 @@
-# Use lightweight official Python image
+# Use official lightweight Python image
 FROM python:3.11-slim
 
-# Set working directory inside container
+# Set working directory in the container
 WORKDIR /app
 
-# Copy all files into the container
+# Copy everything from your repo into the container
 COPY . .
 
-# Install required Python packages
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose Flask's default port
+# Expose the port used by Flask
 EXPOSE 5000
 
-# Set environment variable for Flask
+# Set Flask environment variables
 ENV FLASK_APP=main.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
