@@ -1,17 +1,21 @@
 # Use official lightweight Python image
 FROM python:3.11-slim
 
-# Set working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy everything from your repo into the container
+# Copy repo contents
 COPY . .
 
-# Install Python dependencies
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port that Cloud Run requires
-EXPOSE 8080
+# Expose Flask port
+EXPOSE 5000
 
-# Run the app using Python instead of flask CLI so PORT works
-CMD ["python", "main.py"]
+# Set Flask environment
+ENV FLASK_APP=main.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+# Run the app
+CMD ["flask", "run"]
