@@ -10,12 +10,8 @@ COPY . .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port used by Flask
-EXPOSE 5000
+# Expose the port that Cloud Run requires
+EXPOSE 8080
 
-# Set Flask environment variables
-ENV FLASK_APP=main.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
-# Run the Flask app
-CMD ["flask", "run"]
+# Run the app using Python instead of flask CLI so PORT works
+CMD ["python", "main.py"]
